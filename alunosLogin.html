@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<style type="text/css">
+		/* centralização do texto*/
+		P { text-align: center 
+		}
+		H1 { text-align: center
+		 }
+		ul li{
+			list-style: none;
+		}
+
+		label{
+	 		width: 100px;
+	 		display: inline-block;
+		}
+
+		a{
+			cursor: pointer;
+		}
+
+		a:hover{
+			text-decoration: underline;
+		}
+
+		input {
+			width: 300px;
+			height: 20px;
+			border-radius: 5px;
+			background-color:#A9A9A9;
+		}
+
+		.danger{
+			color: white;
+		}
+		
+		/*
+    * Estrutura base
+    */
+   	html,
+   body {
+     height: 100%;
+     background-color: 	#808080
+   }
+   
+	</style>
+</head>
+<body>
+	<h1>Cadastro de Alunos</h1>
+
+		<p><label>Nome:</label> <input type="text" id="nome"></p>
+		<p><label>Matricula:</label> <input type="text" maxlength="7" id="matricula"></p>
+		<p><label>Transtorno:</label> <input type="text" id="transtorno"></p>
+		<p><label>Diagnostico:</label> <input type="text" id="diagnostico"></p>
+		<p><label>Senha:</label> <input type="text" maxlength="8" id="senha"></p>
+		<p><button style="background-color:#A9A9A9" onclick="cadastrar()">Cadastrar</button></p>
+
+		<p id="dadosInseridos"></p>
+
+<script>
+	//Crição do array alunos vazio
+	const alunos = []
+
+	//Função para limpar os dados dos inputs
+	function limparDados(){
+		document.getElementById('nome').value = ''
+		document.getElementById('matricula').value = ''
+		document.getElementById('transtorno').value = ''
+		document.getElementById('diagnostico').value = ''
+		document.getElementById('senha').value = ''
+	}
+
+	//Função para remover um determinado valor do array
+	function remover(index){
+		alunos.splice(index,1)
+
+		return document.getElementById('dadosInseridos').innerHTML = '<h3 class="danger">Aluno Removido com Sucesso!</h3>'+exibir()
+	}
+
+	//Função para exibir todos os dados dos alunos que estão no array
+	function exibir(){
+		html = '<h2>Alunos Cadastrados</h2>'
+
+		html += '<ul>'	
+
+		alunos.forEach((aluno,index) => {
+		   html += '<li><p>Nome: <strong>'+ aluno.nome +'</strong></p>'
+			html += '<p>Matricula: <strong>'+ aluno.matricula +'</strong></p>'
+		   html += '<p>Transtorno: <strong>'+ aluno.transtorno +'</strong></p>'
+		   html += '<p>Diagnostico: <strong>'+ aluno.diagnostico +'</strong></p>'
+		   html += '<p><a onclick="remover('+index+')">Remover</a></p></li>'
+		})
+
+		html += '</ul>'
+
+		limparDados()
+
+		return document.getElementById('dadosInseridos').innerHTML = html
+	}
+
+	//Função para cadastrar um novo aluno e inseri-lo no array
+	function cadastrar(){
+		var nomeAluno = document.getElementById('nome').value
+		var matriculaAluno = document.getElementById('matricula').value
+		var transtornoAluno = document.getElementById('transtorno').value
+		var diagnosticoAluno = document.getElementById('diagnostico').value
+		var senhaAluno = document.getElementById('senha').value
+
+
+		aluno = { nome: nomeAluno, matricula: matriculaAluno,transtorno: transtornoAluno, diagnostico: diagnosticoAluno, senha: senhaAluno}
+
+		alunos.push(aluno)
+
+		exibir()
+		
+	}
+</script>		
+</script>
+</body>
+</html>
